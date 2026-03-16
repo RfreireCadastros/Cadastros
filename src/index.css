@@ -30,14 +30,14 @@
            active:scale-95 flex items-center justify-center gap-2;
   }
 
-  .glass-input {
-    @apply w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl focus:outline-none 
+  .glass-input-sm {
+    @apply w-full px-4 h-[34px] bg-white/5 border border-white/10 rounded-lg focus:outline-none 
            focus:ring-2 focus:ring-primary/40 focus:border-primary/50 transition-all 
-           text-white placeholder:text-slate-500 hover:bg-white/[0.08];
+           text-[10px] text-white placeholder:text-slate-500 hover:bg-white/[0.08];
   }
 
   .glass-label {
-    @apply block text-sm font-semibold text-slate-400 mb-2 ml-1 tracking-wide uppercase;
+    @apply block text-[9px] font-black text-slate-500 mb-1 ml-1 tracking-widest uppercase;
   }
 
   .text-gradient {
