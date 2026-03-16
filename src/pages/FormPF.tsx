@@ -14,9 +14,9 @@ import { DocumentUploader } from '../components/ui/DocumentUploader';
 const SectionTitle = ({ icon: Icon, title }: { icon: any, title: string }) => (
   <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-3">
     <div className="p-2 bg-primary/10 rounded-lg text-primary">
-      <Icon size={18} />
+      <Icon size={20} />
     </div>
-    <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white">{title}</h3>
+    <h3 className="text-base font-black uppercase tracking-[0.2em] text-white">{title}</h3>
   </div>
 );
 
@@ -128,14 +128,18 @@ type PFFormData = z.infer<typeof pfSchema>;
 
 export const FormPF: React.FC = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm<PFFormData>({
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<PFFormData>({
     resolver: zodResolver(pfSchema),
     defaultValues: {
       tipo_cadastro: 'Inquilino',
       reajuste: 'Anual',
-      vencimento: 'Último dia útil'
+      vencimento: 'Último dia útil',
+      estado_civil: 'Solteiro'
     }
   });
+
+  const estadoCivil = watch('estado_civil');
+  const showConjuge = estadoCivil === 'Casado' || estadoCivil === 'U. Estável';
 
   const onSubmit = (data: PFFormData) => {
     console.log(data);
@@ -355,77 +359,79 @@ export const FormPF: React.FC = () => {
           </GlassCard>
 
           {/* 4. DADOS DO CÔNJUGE */}
-          <GlassCard className="p-6 md:p-8">
-            <SectionTitle icon={Heart} title="Dados do Cônjuge" />
-            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-3">
-              <InputGroup label="Nome Completo" className="lg:col-span-12">
-                <input className="glass-input-sm" {...register('conjuge_nome')} />
-              </InputGroup>
-              <InputGroup label="Identidade" className="lg:col-span-4">
-                <input className="glass-input-sm" {...register('conjuge_identidade')} />
-              </InputGroup>
-              <InputGroup label="Órgão Expedidor" className="lg:col-span-3">
-                <input className="glass-input-sm" {...register('conjuge_orgao')} />
-              </InputGroup>
-              <InputGroup label="Data Nascimento" className="lg:col-span-5">
-                <input className="glass-input-sm" placeholder="  /  /  " {...register('conjuge_nascimento')} />
-              </InputGroup>
-              <InputGroup label="Filiação" className="lg:col-span-12">
-                <input className="glass-input-sm" {...register('conjuge_filiacao')} />
-              </InputGroup>
-              <InputGroup label="CPF" className="lg:col-span-4">
-                <input className="glass-input-sm" {...register('conjuge_cpf')} />
-              </InputGroup>
-              <InputGroup label="Naturalidade/UF" className="lg:col-span-4">
-                <input className="glass-input-sm" {...register('conjuge_naturalidade')} />
-              </InputGroup>
-              <InputGroup label="Nacionalidade" className="lg:col-span-4">
-                <input className="glass-input-sm" {...register('conjuge_nacionalidade')} />
-              </InputGroup>
-              <InputGroup label="Profissão" className="lg:col-span-6">
-                <input className="glass-input-sm" {...register('conjuge_profissao')} />
-              </InputGroup>
-              <InputGroup label="Atividade (Autônomo)" className="lg:col-span-6">
-                <input className="glass-input-sm" {...register('conjuge_atividade')} />
-              </InputGroup>
-              <InputGroup label="Empresa onde trabalha" className="lg:col-span-12">
-                <input className="glass-input-sm" {...register('conjuge_empresa')} />
-              </InputGroup>
-              <InputGroup label="Cargo/Função" className="lg:col-span-8">
-                <input className="glass-input-sm" {...register('conjuge_cargo')} />
-              </InputGroup>
-              <InputGroup label="Admissão" className="lg:col-span-4">
-                <input className="glass-input-sm" placeholder="  /  /  " {...register('conjuge_admissao')} />
-              </InputGroup>
-              <InputGroup label="Endereço" className="lg:col-span-12">
-                <input className="glass-input-sm" {...register('conjuge_endereco')} />
-              </InputGroup>
-              <InputGroup label="Bairro" className="lg:col-span-4">
-                <input className="glass-input-sm" {...register('conjuge_bairro')} />
-              </InputGroup>
-              <InputGroup label="Cidade" className="lg:col-span-4">
-                <input className="glass-input-sm" {...register('conjuge_cidade')} />
-              </InputGroup>
-              <InputGroup label="UF" className="lg:col-span-1">
-                <input className="glass-input-sm text-center uppercase" maxLength={2} {...register('conjuge_uf')} />
-              </InputGroup>
-              <InputGroup label="CEP" className="lg:col-span-3">
-                <input className="glass-input-sm" {...register('conjuge_cep')} />
-              </InputGroup>
-              <InputGroup label="Telefone" className="lg:col-span-3">
-                <input className="glass-input-sm" {...register('conjuge_telefone')} />
-              </InputGroup>
-              <InputGroup label="Ramal" className="lg:col-span-2">
-                <input className="glass-input-sm" {...register('conjuge_ramal')} />
-              </InputGroup>
-              <InputGroup label="Celular" className="lg:col-span-3">
-                <input className="glass-input-sm" {...register('conjuge_celular')} />
-              </InputGroup>
-              <InputGroup label="Renda Mensal R$" className="lg:col-span-4">
-                <input className="glass-input-sm" {...register('conjuge_rendas')} />
-              </InputGroup>
-            </div>
-          </GlassCard>
+          {showConjuge && (
+            <GlassCard className="p-6 md:p-8">
+              <SectionTitle icon={Heart} title="Dados do Cônjuge" />
+              <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-3">
+                <InputGroup label="Nome Completo" className="lg:col-span-12">
+                  <input className="glass-input-sm" {...register('conjuge_nome')} />
+                </InputGroup>
+                <InputGroup label="Identidade" className="lg:col-span-4">
+                  <input className="glass-input-sm" {...register('conjuge_identidade')} />
+                </InputGroup>
+                <InputGroup label="Órgão Expedidor" className="lg:col-span-3">
+                  <input className="glass-input-sm" {...register('conjuge_orgao')} />
+                </InputGroup>
+                <InputGroup label="Data Nascimento" className="lg:col-span-5">
+                  <input className="glass-input-sm" placeholder="  /  /  " {...register('conjuge_nascimento')} />
+                </InputGroup>
+                <InputGroup label="Filiação" className="lg:col-span-12">
+                  <input className="glass-input-sm" {...register('conjuge_filiacao')} />
+                </InputGroup>
+                <InputGroup label="CPF" className="lg:col-span-4">
+                  <input className="glass-input-sm" {...register('conjuge_cpf')} />
+                </InputGroup>
+                <InputGroup label="Naturalidade/UF" className="lg:col-span-4">
+                  <input className="glass-input-sm" {...register('conjuge_naturalidade')} />
+                </InputGroup>
+                <InputGroup label="Nacionalidade" className="lg:col-span-4">
+                  <input className="glass-input-sm" {...register('conjuge_nacionalidade')} />
+                </InputGroup>
+                <InputGroup label="Profissão" className="lg:col-span-6">
+                  <input className="glass-input-sm" {...register('conjuge_profissao')} />
+                </InputGroup>
+                <InputGroup label="Atividade (Autônomo)" className="lg:col-span-6">
+                  <input className="glass-input-sm" {...register('conjuge_atividade')} />
+                </InputGroup>
+                <InputGroup label="Empresa onde trabalha" className="lg:col-span-12">
+                  <input className="glass-input-sm" {...register('conjuge_empresa')} />
+                </InputGroup>
+                <InputGroup label="Cargo/Função" className="lg:col-span-8">
+                  <input className="glass-input-sm" {...register('conjuge_cargo')} />
+                </InputGroup>
+                <InputGroup label="Admissão" className="lg:col-span-4">
+                  <input className="glass-input-sm" placeholder="  /  /  " {...register('conjuge_admissao')} />
+                </InputGroup>
+                <InputGroup label="Endereço" className="lg:col-span-12">
+                  <input className="glass-input-sm" {...register('conjuge_endereco')} />
+                </InputGroup>
+                <InputGroup label="Bairro" className="lg:col-span-4">
+                  <input className="glass-input-sm" {...register('conjuge_bairro')} />
+                </InputGroup>
+                <InputGroup label="Cidade" className="lg:col-span-4">
+                  <input className="glass-input-sm" {...register('conjuge_cidade')} />
+                </InputGroup>
+                <InputGroup label="UF" className="lg:col-span-1">
+                  <input className="glass-input-sm text-center uppercase" maxLength={2} {...register('conjuge_uf')} />
+                </InputGroup>
+                <InputGroup label="CEP" className="lg:col-span-3">
+                  <input className="glass-input-sm" {...register('conjuge_cep')} />
+                </InputGroup>
+                <InputGroup label="Telefone" className="lg:col-span-3">
+                  <input className="glass-input-sm" {...register('conjuge_telefone')} />
+                </InputGroup>
+                <InputGroup label="Ramal" className="lg:col-span-2">
+                  <input className="glass-input-sm" {...register('conjuge_ramal')} />
+                </InputGroup>
+                <InputGroup label="Celular" className="lg:col-span-3">
+                  <input className="glass-input-sm" {...register('conjuge_celular')} />
+                </InputGroup>
+                <InputGroup label="Renda Mensal R$" className="lg:col-span-4">
+                  <input className="glass-input-sm" {...register('conjuge_rendas')} />
+                </InputGroup>
+              </div>
+            </GlassCard>
+          )}
 
           {/* 5. DADOS PROFISSIONAIS */}
           <GlassCard className="p-6 md:p-8 border-white/10">

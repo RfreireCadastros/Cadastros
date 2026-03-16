@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileUp, Trash2, Plus, FileText, Image as ImageIcon, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { compressMedia } from '../../lib/compression';
 
 interface Document {
   id: string;
@@ -16,16 +17,17 @@ export const DocumentUploader: React.FC = () => {
   };
 
   const removeDoc = (id: string) => {
-    setDocs(docs.filter(d => d.id !== id));
+    setDocs(docs.filter((d: Document) => d.id !== id));
   };
 
   const updateDoc = (id: string, updates: Partial<Document>) => {
-    setDocs(docs.map(d => d.id === id ? { ...d, ...updates } : d));
+    setDocs(docs.map((d: Document) => d.id === id ? { ...d, ...updates } : d));
   };
 
-  const onFileChange = (id: string, file: File | null) => {
+  const onFileChange = async (id: string, file: File | null) => {
     if (file) {
-      updateDoc(id, { file });
+      const compressed = await compressMedia(file);
+      updateDoc(id, { file: compressed });
     }
   };
 
@@ -47,7 +49,7 @@ export const DocumentUploader: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <AnimatePresence>
-          {docs.map((doc, index) => (
+          {docs.map((doc: Document, index: number) => (
             <motion.div 
               key={doc.id}
               initial={{ opacity: 0, scale: 0.95 }}
