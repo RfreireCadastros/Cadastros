@@ -83,7 +83,7 @@ export const FormPJ: React.FC = () => {
               </button>
             </div>
 
-            {fields.map((field, index) => (
+            {fields.map((field: any, index: number) => (
               <div key={field.id} className="p-4 bg-white/5 rounded-xl border border-white/10 relative animate-fade-in">
                 {fields.length > 1 && (
                   <button 
