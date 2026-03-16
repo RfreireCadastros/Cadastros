@@ -3,7 +3,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { GlassCard } from '../components/ui/GlassCard';
-import { ArrowLeft, Save, Plus, Trash2, Building2, Users, FileText } from 'lucide-react';
+import { ArrowLeft, Save, Plus, Trash2, Building2, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 

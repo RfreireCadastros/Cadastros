@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { GlassCard } from '../components/ui/GlassCard';
-import { ArrowLeft, Save, User, MapPin, ShieldAlert, Home, GraduationCap, Phone } from 'lucide-react';
+import { ArrowLeft, Save, User, MapPin, ShieldAlert, Home, Phone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { DocumentUploader } from '../components/ui/DocumentUploader';
 import { motion } from 'framer-motion';
