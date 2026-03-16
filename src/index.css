@@ -47,7 +47,7 @@
   }
 
   .glass-label {
-    @apply block text-[11px] font-black text-slate-400 mb-1 ml-1 tracking-widest uppercase;
+    @apply block text-[12px] font-black text-slate-400 mb-1 ml-1 tracking-widest uppercase;
   }
 
   .text-gradient {

@@ -173,8 +173,8 @@ export const FormPF: React.FC = () => {
           {/* 1. USO INTERNO */}
           <GlassCard className="p-6 md:p-8">
             <SectionTitle icon={ShieldAlert} title="Para Uso Interno" />
-            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-3">
-              <InputGroup label="Tipo de Cadastro" className="lg:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <InputGroup label="Tipo de Cadastro">
                 <select className="glass-input-sm appearance-none" {...register('tipo_cadastro')}>
                   <option value="Inquilino">Inquilino</option>
                   <option value="Fiador">Fiador</option>
@@ -192,10 +192,10 @@ export const FormPF: React.FC = () => {
               <InputGroup label="Cód. Inquilino">
                 <input className="glass-input-sm" {...register('cod_inquilino')} />
               </InputGroup>
-              <InputGroup label="Atendente" className="lg:col-span-2">
+              <InputGroup label="Atendente" className="md:col-span-2">
                 <input className="glass-input-sm" {...register('atendente_responsavel')} />
               </InputGroup>
-              <InputGroup label="Entregue por" className="lg:col-span-2">
+              <InputGroup label="Entregue por" className="md:col-span-2">
                 <input className="glass-input-sm" {...register('ficha_entregue_por')} />
               </InputGroup>
               <InputGroup label="Data Entrega">
@@ -294,22 +294,20 @@ export const FormPF: React.FC = () => {
                 <input className="glass-input-sm" {...register('nacionalidade')} />
               </InputGroup>
 
-              <InputGroup label="Estado Civil" className="lg:col-span-12 flex flex-wrap gap-4 items-center bg-white/5 px-2 rounded-lg border border-white/5 h-auto py-2">
-                <label className="glass-label mb-0 border-r border-white/10 pr-4 mr-2">Estado Civil:</label>
+              <InputGroup label="Estado Civil" className="lg:col-span-12 flex flex-wrap gap-6 items-center bg-white/5 px-4 rounded-lg border border-white/5 h-auto py-3">
                 {['Solteiro', 'Casado', 'Divorciado', 'U. Estável', 'Viúvo', 'Separado Jud.'].map(status => (
-                  <label key={status} className="flex items-center gap-1.5 cursor-pointer">
-                    <input type="radio" value={status} {...register('estado_civil')} className="w-2.5 h-2.5 text-primary" />
-                    <span className="text-[9px] font-bold text-slate-400 whitespace-nowrap">{status}</span>
+                  <label key={status} className="flex items-center gap-2 cursor-pointer group">
+                    <input type="radio" value={status} {...register('estado_civil')} className="w-3 h-3 text-primary bg-slate-800 border-white/10" />
+                    <span className="text-[10px] font-bold text-slate-400 group-hover:text-white transition-colors whitespace-nowrap">{status}</span>
                   </label>
                 ))}
               </InputGroup>
               
-              <InputGroup label="Grau Instrução" className="lg:col-span-12 flex flex-wrap gap-4 items-center bg-white/5 px-2 rounded-lg border border-white/5 h-auto py-2">
-                <label className="glass-label mb-0 border-r border-white/10 pr-4 mr-2">Grau Instrução:</label>
+              <InputGroup label="Grau Instrução" className="lg:col-span-12 flex flex-wrap gap-6 items-center bg-white/5 px-4 rounded-lg border border-white/5 h-auto py-3">
                 {['1º G', '2º G', 'Sup.', 'Outros'].map(g => (
-                  <label key={g} className="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" value={g} {...register('grau_instrucao')} className="w-2.5 h-2.5 text-primary" />
-                    <span className="text-[9px] font-bold text-slate-400">{g}</span>
+                  <label key={g} className="flex items-center gap-2 cursor-pointer group">
+                    <input type="radio" value={g} {...register('grau_instrucao')} className="w-3 h-3 text-primary bg-slate-800 border-white/10" />
+                    <span className="text-[10px] font-bold text-slate-400 group-hover:text-white transition-colors">{g}</span>
                   </label>
                 ))}
               </InputGroup>
@@ -340,12 +338,11 @@ export const FormPF: React.FC = () => {
                 <input className="glass-input-sm" {...register('email')} />
               </InputGroup>
 
-              <InputGroup label="Residência" className="lg:col-span-12 flex flex-wrap gap-4 items-center bg-white/5 px-2 rounded-lg border border-white/5 h-auto py-2">
-                <label className="glass-label mb-0 border-r border-white/10 pr-4 mr-2">Situação:</label>
+              <InputGroup label="Residência" className="lg:col-span-12 flex flex-wrap gap-6 items-center bg-white/5 px-4 rounded-lg border border-white/5 h-auto py-3">
                 {['Própria', 'Financiada', 'Alugada', 'Com Pais', 'Com Parentes'].map(r => (
-                  <label key={r} className="flex items-center gap-1.5 cursor-pointer">
-                    <input type="radio" value={r} {...register('tipo_residencia')} className="w-2.5 h-2.5 text-primary" />
-                    <span className="text-[9px] font-bold text-slate-400 whitespace-nowrap">{r}</span>
+                  <label key={r} className="flex items-center gap-2 cursor-pointer group">
+                    <input type="radio" value={r} {...register('tipo_residencia')} className="w-3 h-3 text-primary bg-slate-800 border-white/10" />
+                    <span className="text-[10px] font-bold text-slate-400 group-hover:text-white transition-colors whitespace-nowrap">{r}</span>
                   </label>
                 ))}
               </InputGroup>
