@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, FileText, Settings, LogOut, Search, Filter, Bell, User as UserIcon } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Settings, LogOut, Search, Filter, Bell, User as UserIcon, Building2 } from 'lucide-react';
 import { GlassCard } from '../components/ui/GlassCard';
 import { motion } from 'framer-motion';
 
