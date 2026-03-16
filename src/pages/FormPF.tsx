@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { GlassCard } from '../components/ui/GlassCard';
-import { ArrowLeft, Save, User, MapPin, Briefcase, Phone, Banknote, ShieldAlert } from 'lucide-react';
+import { ArrowLeft, Save, User, MapPin, ShieldAlert } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { DocumentUploader } from '../components/ui/DocumentUploader';
 
@@ -38,8 +38,7 @@ type PFFormData = z.infer<typeof pfSchema>;
 
 export const FormPF: React.FC = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<PFFormData>({
+  const { register, handleSubmit, watch } = useForm<PFFormData>({
     resolver: zodResolver(pfSchema),
     defaultValues: { tipo_cadastro: 'Locatário' }
   });

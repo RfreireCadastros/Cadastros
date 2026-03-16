@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, FileText, Settings, LogOut, Search, Plus, Filter } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Settings, LogOut, Search, Filter } from 'lucide-react';
 import { GlassCard } from '../components/ui/GlassCard';
 
 // Dummy list for visual demonstration
