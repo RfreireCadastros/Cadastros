@@ -606,10 +606,10 @@ export const FormPF: React.FC = () => {
             <SectionTitle icon={ClipboardCheck} title="Documentos e Finalização" />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                <h4 className="text-[10px] font-black text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                  <Info size={12} className="text-primary" /> Checklist de Documentos
+                <h4 className="text-xs font-black text-white uppercase tracking-widest mb-3 flex items-center gap-2">
+                  <Info size={14} className="text-primary" /> Checklist de Documentos
                 </h4>
-                <ul className="text-[9px] text-slate-500 space-y-1.5 leading-relaxed font-bold">
+                <ul className="text-[11px] text-slate-400 space-y-2 leading-relaxed font-bold">
                   <li>• Cópia de Identidade e CPF (Frente e Verso)</li>
                   <li>• Se casado, cópia de Identidade e CPF do cônjuge</li>
                   <li>• Comprovante de endereço atualizado</li>
