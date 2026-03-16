@@ -4,13 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { GlassCard } from '../components/ui/GlassCard';
 import { 
-  ArrowLeft, Save, User, MapPin, ShieldAlert, Home, Phone, 
-  Briefcase, Heart, Users, Banknote, CreditCard, Car, 
-  Map as MapIcon, Info, ClipboardCheck
+  ArrowLeft, Save, User, ShieldAlert, Home, 
+  Briefcase, Heart, Users, Banknote, 
+  Info, ClipboardCheck
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { DocumentUploader } from '../components/ui/DocumentUploader';
-import { motion } from 'framer-motion';
 
 const SectionTitle = ({ icon: Icon, title }: { icon: any, title: string }) => (
   <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-3">
