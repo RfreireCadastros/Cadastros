@@ -15,6 +15,16 @@
   body {
     @apply bg-slate-950 text-slate-100 min-h-screen font-inter selection:bg-primary/30;
     background: radial-gradient(circle at 0% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+    color-scheme: dark;
+  }
+
+  select {
+    color-scheme: dark;
+    @apply bg-slate-900 text-white;
+  }
+
+  select option {
+    @apply bg-slate-950 text-white;
   }
 }
 
