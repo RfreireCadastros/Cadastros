@@ -90,7 +90,7 @@ export const LandingPage: React.FC = () => {
         </div>
 
         <motion.div 
-          className="pt-10"
+          className="pt-10 flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
