@@ -5,7 +5,7 @@ import * as z from 'zod';
 import { GlassCard } from '../components/ui/GlassCard';
 import { 
   ArrowLeft, Save, Building2, ShieldAlert, Home, 
-  Briefcase, Heart, Users, Banknote, 
+  Users, Banknote, 
   Info, ClipboardCheck, User
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
