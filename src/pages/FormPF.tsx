@@ -128,7 +128,7 @@ type PFFormData = z.infer<typeof pfSchema>;
 
 export const FormPF: React.FC = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<PFFormData>({
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<PFFormData>({
     resolver: zodResolver(pfSchema),
     defaultValues: {
       tipo_cadastro: 'Inquilino',
@@ -137,6 +137,24 @@ export const FormPF: React.FC = () => {
       estado_civil: 'Solteiro'
     }
   });
+
+  const handleCepLookup = async (cep: string) => {
+    const cleanCep = cep.replace(/\D/g, '');
+    if (cleanCep.length === 8) {
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+        const data = await response.json();
+        if (!data.erro) {
+          setValue('endereco_residencial', data.logradouro);
+          setValue('bairro', data.bairro);
+          setValue('cidade', data.localidade);
+          setValue('uf', data.uf);
+        }
+      } catch (error) {
+        console.error('Error fetching CEP:', error);
+      }
+    }
+  };
 
   const estadoCivil = watch('estado_civil');
   const showConjuge = estadoCivil === 'Casado' || estadoCivil === 'U. Estável';
@@ -312,7 +330,15 @@ export const FormPF: React.FC = () => {
                 ))}
               </InputGroup>
 
-              <InputGroup label="Endereço Residencial" className="lg:col-span-12">
+              <InputGroup label="CEP" className="lg:col-span-3">
+                <input 
+                  className="glass-input-sm" 
+                  {...register('cep')} 
+                  onBlur={(e) => handleCepLookup(e.target.value)}
+                  placeholder="00000-000"
+                />
+              </InputGroup>
+              <InputGroup label="Endereço Residencial" className="lg:col-span-9">
                 <input className="glass-input-sm" {...register('endereco_residencial')} />
               </InputGroup>
               <InputGroup label="Bairro" className="lg:col-span-4">
@@ -321,11 +347,8 @@ export const FormPF: React.FC = () => {
               <InputGroup label="Cidade" className="lg:col-span-4">
                 <input className="glass-input-sm" {...register('cidade')} />
               </InputGroup>
-              <InputGroup label="UF" className="lg:col-span-1">
+              <InputGroup label="UF" className="lg:col-span-4">
                 <input className="glass-input-sm text-center uppercase" maxLength={2} {...register('uf')} />
-              </InputGroup>
-              <InputGroup label="CEP" className="lg:col-span-3">
-                <input className="glass-input-sm" {...register('cep')} />
               </InputGroup>
 
               <InputGroup label="Telefone Fixo" className="lg:col-span-4">
@@ -626,7 +649,7 @@ export const FormPF: React.FC = () => {
               className="px-16 py-6 bg-primary text-white font-black rounded-2xl hover:bg-primary-dark transition-all shadow-[0_15px_40px_rgba(14,165,233,0.4)] hover:scale-[1.02] active:scale-95 text-xs uppercase tracking-[0.3em] group"
             >
               <span className="flex items-center gap-3">
-                Finalizar Cadastro Completo <ArrowLeft size={16} className="rotate-180 group-hover:translate-x-1 transition-transform" />
+                Finalizar Cadastro <ArrowLeft size={16} className="rotate-180 group-hover:translate-x-1 transition-transform" />
               </span>
             </button>
           </div>

@@ -129,13 +129,31 @@ type PJFormData = z.infer<typeof pjSchema>;
 
 export const FormPJ: React.FC = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<PJFormData>({
+  const { register, handleSubmit, setValue } = useForm<PJFormData>({
     resolver: zodResolver(pjSchema),
     defaultValues: {
       tipo_cadastro: 'Locatário',
       reajuste: 'Anual'
     }
   });
+
+  const handleCepLookup = async (cep: string, prefix: 'empresa_' | 'rep1_' | 'rep2_') => {
+    const cleanCep = cep.replace(/\D/g, '');
+    if (cleanCep.length === 8) {
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+        const data = await response.json();
+        if (!data.erro) {
+          setValue(`${prefix}endereco` as any, data.logradouro);
+          setValue(`${prefix}bairro` as any, data.bairro);
+          setValue(`${prefix}cidade` as any, data.localidade);
+          setValue(`${prefix}uf` as any, data.uf);
+        }
+      } catch (error) {
+        console.error('Error fetching CEP:', error);
+      }
+    }
+  };
 
   const onSubmit = (data: PJFormData) => {
     console.log(data);
@@ -259,7 +277,15 @@ export const FormPJ: React.FC = () => {
               <InputGroup label="CNPJ (MF)" className="md:col-span-4">
                 <input className="glass-input-sm" {...register('cnpj')} />
               </InputGroup>
-              <InputGroup label="Endereço" className="md:col-span-12">
+              <InputGroup label="CEP" className="md:col-span-3">
+                <input 
+                  className="glass-input-sm" 
+                  {...register('empresa_cep')} 
+                  onBlur={(e) => handleCepLookup(e.target.value, 'empresa_')}
+                  placeholder="00000-000"
+                />
+              </InputGroup>
+              <InputGroup label="Endereço" className="md:col-span-9">
                 <input className="glass-input-sm" {...register('empresa_endereco')} />
               </InputGroup>
               <InputGroup label="Bairro" className="md:col-span-4">
@@ -268,11 +294,8 @@ export const FormPJ: React.FC = () => {
               <InputGroup label="Cidade" className="md:col-span-4">
                 <input className="glass-input-sm" {...register('empresa_cidade')} />
               </InputGroup>
-              <InputGroup label="UF" className="md:col-span-1">
+              <InputGroup label="UF" className="md:col-span-4">
                 <input className="glass-input-sm text-center uppercase" maxLength={2} {...register('empresa_uf')} />
-              </InputGroup>
-              <InputGroup label="CEP" className="md:col-span-3">
-                <input className="glass-input-sm" {...register('empresa_cep')} />
               </InputGroup>
               <InputGroup label="Pessoa de Contato" className="md:col-span-6">
                 <input className="glass-input-sm" {...register('empresa_contato')} />
@@ -365,7 +388,15 @@ export const FormPJ: React.FC = () => {
                   </label>
                 ))}
               </InputGroup>
-              <InputGroup label="Endereço Residencial" className="md:col-span-12">
+              <InputGroup label="CEP" className="md:col-span-3">
+                <input 
+                  className="glass-input-sm" 
+                  {...register('rep1_cep')} 
+                  onBlur={(e) => handleCepLookup(e.target.value, 'rep1_')}
+                  placeholder="00000-000"
+                />
+              </InputGroup>
+              <InputGroup label="Endereço Residencial" className="md:col-span-9">
                 <input className="glass-input-sm" {...register('rep1_endereco')} />
               </InputGroup>
               <InputGroup label="Bairro" className="md:col-span-4">
@@ -374,11 +405,8 @@ export const FormPJ: React.FC = () => {
               <InputGroup label="Cidade" className="md:col-span-4">
                 <input className="glass-input-sm" {...register('rep1_cidade')} />
               </InputGroup>
-              <InputGroup label="UF" className="md:col-span-1">
-                <input className="glass-input-sm text-center" maxLength={2} {...register('rep1_uf')} />
-              </InputGroup>
-              <InputGroup label="CEP" className="md:col-span-3">
-                <input className="glass-input-sm" {...register('rep1_cep')} />
+              <InputGroup label="UF" className="md:col-span-4">
+                <input className="glass-input-sm text-center uppercase" maxLength={2} {...register('rep1_uf')} />
               </InputGroup>
               <InputGroup label="Telefone" className="md:col-span-3">
                 <input className="glass-input-sm" {...register('rep1_telefone')} />
@@ -450,7 +478,15 @@ export const FormPJ: React.FC = () => {
                   </label>
                 ))}
               </InputGroup>
-              <InputGroup label="Endereço Residencial" className="md:col-span-12">
+              <InputGroup label="CEP" className="md:col-span-3">
+                <input 
+                  className="glass-input-sm" 
+                  {...register('rep2_cep')} 
+                  onBlur={(e) => handleCepLookup(e.target.value, 'rep2_')}
+                  placeholder="00000-000"
+                />
+              </InputGroup>
+              <InputGroup label="Endereço Residencial" className="md:col-span-9">
                 <input className="glass-input-sm" {...register('rep2_endereco')} />
               </InputGroup>
               <InputGroup label="Bairro" className="md:col-span-4">
@@ -459,11 +495,8 @@ export const FormPJ: React.FC = () => {
               <InputGroup label="Cidade" className="md:col-span-4">
                 <input className="glass-input-sm" {...register('rep2_cidade')} />
               </InputGroup>
-              <InputGroup label="UF" className="md:col-span-1">
-                <input className="glass-input-sm text-center" maxLength={2} {...register('rep2_uf')} />
-              </InputGroup>
-              <InputGroup label="CEP" className="md:col-span-3">
-                <input className="glass-input-sm" {...register('rep2_cep')} />
+              <InputGroup label="UF" className="md:col-span-4">
+                <input className="glass-input-sm text-center uppercase" maxLength={2} {...register('rep2_uf')} />
               </InputGroup>
               <InputGroup label="Telefone" className="md:col-span-3">
                 <input className="glass-input-sm" {...register('rep2_telefone')} />
@@ -695,7 +728,7 @@ export const FormPJ: React.FC = () => {
               className="px-16 py-6 bg-primary text-white font-black rounded-2xl hover:bg-primary-dark transition-all shadow-[0_15px_40px_rgba(14,165,233,0.4)] hover:scale-[1.02] active:scale-95 text-xs uppercase tracking-[0.3em] group"
             >
               <span className="flex items-center gap-3">
-                Finalizar Cadastro Corporate <ArrowLeft size={16} className="rotate-180 group-hover:translate-x-1 transition-transform" />
+                Finalizar Cadastro <ArrowLeft size={16} className="rotate-180 group-hover:translate-x-1 transition-transform" />
               </span>
             </button>
           </div>
