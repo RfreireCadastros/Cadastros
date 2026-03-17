@@ -22,7 +22,7 @@ export const LandingPage: React.FC = () => {
       >
         <header className="space-y-4">
           <motion.h1 
-            className="text-6xl md:text-8xl font-black tracking-tight"
+            className="text-4xl md:text-6xl font-black tracking-tight"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -31,7 +31,7 @@ export const LandingPage: React.FC = () => {
             <span className="text-primary">Cadastros</span>
           </motion.h1>
           <motion.p 
-            className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed"
+            className="text-lg md:text-xl text-slate-400 max-w-xl mx-auto font-light leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -41,11 +41,11 @@ export const LandingPage: React.FC = () => {
         </header>
 
         <div className="space-y-8">
-          <h2 className="text-sm uppercase tracking-[0.4em] text-slate-500 font-bold">
+          <h2 className="text-xs uppercase tracking-[0.4em] text-slate-500 font-bold">
             Como deseja se identificar?
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {[
               { id: 'PF', label: 'Pessoa Física', sub: 'Locatários e Fiadores', icon: User },
               { id: 'PJ', label: 'Pessoa Jurídica', sub: 'Empresas e Sócios', icon: Building2 }
@@ -58,23 +58,23 @@ export const LandingPage: React.FC = () => {
                 className="h-full"
               >
                 <GlassCard 
-                  className={`h-full cursor-pointer transition-all duration-500 border-2 relative overflow-hidden group p-8 ${
+                  className={`h-full cursor-pointer transition-all duration-500 border-2 relative overflow-hidden group p-6 ${
                     type === item.id 
                       ? 'border-primary shadow-[0_0_40px_rgba(14,165,233,0.2)] bg-white/10' 
                       : 'border-white/5 hover:border-white/20 bg-white/5'
                   }`}
                 >
                   <div className="space-y-6 flex flex-col items-center">
-                    <div className={`w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-500 ${
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 ${
                       type === item.id ? 'bg-primary text-white shadow-lg' : 'bg-white/5 text-slate-500 group-hover:text-slate-300'
                     }`}>
-                      <item.icon size={40} />
+                      <item.icon size={32} />
                     </div>
                     <div className="text-center">
-                      <h3 className={`text-2xl font-bold mb-2 transition-colors ${type === item.id ? 'text-white' : 'text-slate-400'}`}>
+                      <h3 className={`text-xl font-bold mb-1 transition-colors ${type === item.id ? 'text-white' : 'text-slate-400'}`}>
                         {item.label}
                       </h3>
-                      <p className="text-slate-500 font-medium">{item.sub}</p>
+                      <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">{item.sub}</p>
                     </div>
                   </div>
                   {type === item.id && (
@@ -97,7 +97,7 @@ export const LandingPage: React.FC = () => {
         >
           <button 
             onClick={handleStart}
-            className="glass-button min-w-[320px] h-16 text-lg group shadow-2xl relative overflow-hidden"
+            className="glass-button min-w-[280px] h-14 text-base group shadow-2xl relative overflow-hidden"
           >
             <span className="relative z-10 flex items-center gap-3">
               Iniciar Registro
